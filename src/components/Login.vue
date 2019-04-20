@@ -2,12 +2,16 @@
   <div class="container">
     <div class="login_box">
       <img src="../assets/images/logo.png" alt="logo">
-      <el-form :model="form">
-        <el-form-item>
-            <el-input placeholder="请输入用户名" v-model="form.username"></el-input>
+      <el-form :model="form" :rules="rules" ref="loginForm">
+        <el-form-item prop="username">
+          <el-input prefix-icon="iconfont icon-account" placeholder="请输入用户名" v-model="form.username"></el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input  type="password" prefix-icon="iconfont icon-eye-slash" placeholder="请输入密码" v-model="form.password"></el-input>
         </el-form-item>
         <el-form-item>
-            <el-input placeholder="请输入密码" v-model="form.password"></el-input>
+          <el-button type="primary" @click="submit()">登录</el-button>
+          <el-button>重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -21,7 +25,26 @@ export default {
       form: {
         username: '',
         password: ''
+      },
+      rules: {
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          { min: 6, max: 18, message: '密码长度在6到18之间', trigger: 'blur' }
+        ]
       }
+    }
+  },
+  methods: {
+    submit () {
+      // 验证表单
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          console.log('ok')
+        }
+      })
     }
   }
 }

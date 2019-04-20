@@ -8,6 +8,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 // 导入全局样式
 import './assets/css/global.css'
+// 导入字体图标
+import './assets/fonts/iconfont.css'
 Vue.use(ElementUI, {size: 'small'})
 
 // 设置为true,控制台的日志会更详细
