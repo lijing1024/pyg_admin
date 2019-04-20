@@ -40,9 +40,13 @@ export default {
   methods: {
     submit () {
       // 验证表单
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
-          console.log('ok')
+          const {data: {data, meta}} = await this.$axios.post('login', this.form)
+          if (meta.status !== 200) return this.$message.error(meta.msg || '登录失败')
+          // 登录成功后需要保存token到sessionStorage,再跳转到首页
+          sessionStorage.setItem('token', data.token)
+          this.$router.push('/home')
         }
       })
     }
