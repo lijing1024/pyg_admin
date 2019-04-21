@@ -1,5 +1,11 @@
 <template>
-  <p>首页</p>
+  <el-container class="home_container">
+    <el-header class="home_header">Header</el-header>
+    <el-container>
+      <el-aside class="home_aside" width="200px">Aside</el-aside>
+      <el-main class="home_main">Main</el-main>
+    </el-container>
+  </el-container>
 </template>
 <script>
 export default {
@@ -7,4 +13,16 @@ export default {
 }
 </script>
 <style>
+  .home_container{
+    height: 100%;
+  }
+  .home_header{
+    background-color: #373D41;
+  }
+  .home_aside{
+    background-color: #333744;
+  }
+  .home_main{
+    background-color: #EAEDF1;
+  }
 </style>

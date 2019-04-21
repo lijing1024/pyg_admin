@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="login_container">
     <div class="login_box">
       <img src="../assets/images/logo.png" alt="logo">
       <el-form :model="form" :rules="rules" ref="loginForm">
@@ -54,13 +54,13 @@ export default {
 }
 </script>
 <style>
-  .container{
+  .login_container{
       position: relative;
       width: 100%;
       height: 100%;
       background: linear-gradient(30deg,#fff, #659097);
   }
-  .container .login_box{
+  .login_container .login_box{
       position: absolute;
       left: 50%;
       top: 50%;
@@ -71,7 +71,7 @@ export default {
       background: linear-gradient(210deg,#fff, rgb(162, 201, 201));
       box-shadow: 0 0 10px #fff;
   }
-  .container .login_box img {
+  .login_container .login_box img {
       display: block;
       margin:15px auto;
   }
