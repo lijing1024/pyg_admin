@@ -9,6 +9,7 @@
       <el-aside class="home_aside" :width="iscollapse?'65px':'180px'">
         <el-menu
           unique-opened
+          router
           :collapse="iscollapse"
           :collapse-transition="false"
           style="border:none;margin-top:5px"
@@ -22,7 +23,8 @@
               <span>&nbsp;{{item.authName}}</span>
             </template>
             <!-- 二级导航 -->
-            <el-menu-item v-for="subItem in item.children" :key="subItem.id" :index="item.id+'-'+subItem.id" >
+            <!-- 启动router模式,index即为跳转路径 -->
+            <el-menu-item v-for="subItem in item.children" :key="subItem.id" :index="subItem.path" >
               <i class="el-icon-menu"></i>
               <span>{{subItem.authName}}</span>
             </el-menu-item>
@@ -86,14 +88,5 @@ export default {
   }
   .home_main{
     background-color: #EAEDF1;
-    font-size: 24px;
-    position: relative;
-  }
-  .home_main p{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: (-80%, -80%);
-    font-size: 24px;
   }
 </style>
