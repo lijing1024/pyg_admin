@@ -3,7 +3,7 @@
     <el-header class="home_header">
       <el-button @click="toggleMenu()" icon="iconfont icon-menu" size="mini" circle></el-button>
       <span class="title">品优购后台管理系统</span>
-      <el-button class="exit" type="danger" round>退出</el-button>
+      <el-button class="exit" type="danger" round @click="logout()">退出</el-button>
     </el-header>
     <el-container>
       <el-aside class="home_aside" :width="iscollapse?'65px':'180px'">
@@ -59,6 +59,11 @@ export default {
       if (meta.status !== 200) return this.$message.error('获取菜单信息失败')
       // 成功获取菜单列表数据
       this.menus = data
+    },
+    // 退出登录
+    logout () {
+      sessionStorage.removeItem('token')
+      this.$router.push('/login')
     }
   },
   mounted () {
