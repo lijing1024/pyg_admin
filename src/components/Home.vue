@@ -9,55 +9,54 @@
       <el-aside class="home_aside" :width="iscollapse?'65px':'180px'">
         <el-menu
           unique-opened
-          @open="handleOpen"
-          @close="handleClose"
           :collapse="iscollapse"
           :collapse-transition="false"
           style="border:none;margin-top:5px"
           background-color="#333744"
           text-color="#fff"
           active-text-color="#ffd04b">
-          <el-submenu v-for="(val, key) in menus" :key="val.id" :index="key+''">
+          <!-- 一级导航 -->
+          <el-submenu v-for="(item, i) in menus" :key="item.id" :index="item.id+''">
             <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>{{val.authName}}</span>
+              <i :class="['iconfont', iconList[i]]"></i>
+              <span>&nbsp;{{item.authName}}</span>
             </template>
-            <el-menu-item :index="key +'-'+ (index+1)" v-for="(item, index) in val.children" :key="item.id">{{item.authName}}</el-menu-item>
+            <!-- 二级导航 -->
+            <el-menu-item v-for="subItem in item.children" :key="subItem.id" :index="item.id+'-'+subItem.id" >
+              <i class="el-icon-menu"></i>
+              <span>{{subItem.authName}}</span>
+            </el-menu-item>
           </el-submenu>
         </el-menu>
       </el-aside>
-      <el-main class="home_main">欢迎来到品优购后台管理系统</el-main>
+      <el-main class="home_main">
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
 <script>
 export default {
   name: 'Home',
-  data(){
+  data () {
     return {
       iscollapse: false,
       menus: [],
-      children: []
+      children: [],
+      iconList: ['icon-account', 'icon-cog', 'icon-shoppingcart', 'icon-file', 'icon-chart-area']
     }
   },
   methods: {
     // 折叠or展开导航菜单
     toggleMenu () {
-      this.collapse=!this.collapse
+      this.iscollapse = !this.iscollapse
     },
     // 获取菜单数据
-    loadData () {
-      this.$axios.get('menus')
-        .then(res => {
-          this.menus = res.data.data
-          this.children = res.data.data.children
-        })
-    },
-    handleOpen (key) {
-      console.log(key)
-    },
-    handleClose (key) {
-      console.log(key)
+    async loadData () {
+      const {data: {data, meta}} = await this.$axios.get('menus')
+      if (meta.status !== 200) return this.$message.error('获取菜单信息失败')
+      // 成功获取菜单列表数据
+      this.menus = data
     }
   },
   mounted () {
@@ -87,6 +86,14 @@ export default {
   }
   .home_main{
     background-color: #EAEDF1;
+    font-size: 24px;
+    position: relative;
+  }
+  .home_main p{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: (-80%, -80%);
     font-size: 24px;
   }
 </style>

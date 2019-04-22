@@ -26,9 +26,9 @@ const router = new Router({
 
 // 添加导航守卫
 router.beforeEach((to, from, next) => {
-  if(to.path === '/login') return next();
-  if(!sessionStorage.getItem('token')) return next('/login')
-  // 一定得调用next()方法,否则不会向下进行 
+  if (to.path === '/login') return next()
+  if (!sessionStorage.getItem('token')) return next('/login')
+  // 一定得调用next()方法,否则不会向下进行
   next()
 })
 
