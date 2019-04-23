@@ -15,7 +15,7 @@
           </el-input>
         </el-col>
         <el-col :span="16">
-          <el-button type="primary" plain @click="addUser()">添加新用户</el-button>
+          <el-button type="primary" plain @click="showAddDialog()">添加新用户</el-button>
         </el-col>
       </el-row>
       <!-- 用户数据列表 -->
@@ -52,36 +52,33 @@
         </el-pagination>
       </div>
     </el-card>
+    <!-- 添加用户对话框 -->
+    <el-dialog title="添加用户" width="400px" :visible.sync="dialogVisible">
+      <el-form :model="addForm" ref="addForm" :rules="addRules" label-width="80px">
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="addForm.username" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input v-model="addForm.password" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="addForm.email" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="手机" prop="mobile">
+          <el-input v-model="addForm.mobile" autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible=false">取 消</el-button>
+        <el-button @click="addUser()" type="primary">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
+import mixin from './UsersMixin.js'
 export default {
-  name: 'Users',
-  data () {
-    return {
-      // 搜索框动态数据绑定
-      serchVal: '',
-      userList: [],
-      // 获取用户列表时的get请求的传参
-      reqParam: {
-        query: '',
-        pagenum: 1,
-        pagesize: 10
-      }
-    }
-  },
-  methods: {
-    // 请求数据
-    async loadData () {
-      const {data: {data, meta}} = await this.$axios.get('users', {params: this.reqParam})
-      if (meta.status !== 200) return this.$message.error('获取用户数据失败')
-      this.userList = data.users
-    }
-    // 添加新用户
-  },
-  mounted () {
-    this.loadData()
-  }
+  mixins: [mixin]
 }
 </script>
 <style>
