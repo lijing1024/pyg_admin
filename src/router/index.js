@@ -15,8 +15,9 @@ const router = new Router({
       component: Login
     },
     {
+      // home组件即对应index界面,故跟路径需重定向至/home
       path: '/',
-      redirect: '/login'
+      redirect: '/home'
     },
     {
       path: '/home',
