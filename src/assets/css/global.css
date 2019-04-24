@@ -8,3 +8,17 @@ body{
     margin:0;
     padding:0;
 }
+/* el-card的公共样式 */
+.el-card{
+  margin-top: 15px;
+}
+/* el-table的公共样式 */
+.el-table{
+  margin-top: 15px;
+}
+/* el-pagination的公共样式 */
+.el-pagination{
+  margin-top: 15px;
+  text-align: right;
+
+}

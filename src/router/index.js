@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
-import Home from '@/components/Home'
+import Home from '@/components/home/Home'
+import Welcome from '@/components/home/Welcome'
+import Users from '@/components/users/Users'
 
 Vue.use(Router)
 
@@ -13,13 +15,19 @@ const router = new Router({
       component: Login
     },
     {
+      // home组件即对应index界面,故跟路径需重定向至/home
       path: '/',
-      redirect: '/login'
+      redirect: '/home'
     },
     {
       path: '/home',
       name: 'Home',
-      component: Home
+      component: Home,
+      redirect: '/welcome',
+      children: [
+        {path: '/welcome', name: 'welcome', component: Welcome},
+        {path: '/users', name: 'users', component: Users}
+      ]
     }
   ]
 })
