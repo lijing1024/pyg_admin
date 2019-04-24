@@ -8,7 +8,6 @@ export default {
     }
     return {
       // 搜索框动态数据绑定
-      serchVal: '',
       userList: [],
       // 获取用户列表时的get请求的传参
       reqParam: {
@@ -92,6 +91,11 @@ export default {
     // 分页查询
     changePager (newPage) {
       this.reqParam.pagenum = newPage
+      this.loadData()
+    },
+    // 搜索功能
+    search () {
+      this.reqParam.pagenum = 1
       this.loadData()
     },
     // 修改用户状态

@@ -10,8 +10,8 @@
     <el-card>
       <el-row :gutter="20">
         <el-col :span="8">
-          <el-input placeholder="请输入搜索关键字" v-model="serchVal">
-            <el-button slot="append" icon="el-icon-search"></el-button>
+          <el-input v-model="reqParam.query" placeholder="请输入搜索关键字">
+            <el-button @click="search()" slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </el-col>
         <el-col :span="16">
