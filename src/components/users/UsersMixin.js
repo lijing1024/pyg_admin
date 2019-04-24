@@ -102,6 +102,15 @@ export default {
           message: '已取消删除'
         })
       })
+    },
+    // 修改用户状态
+    // type 修改后的用户状态
+    async updateState (uId, type) {
+      console.log(uId, type)
+      const {data: {meta}} = await this.$axios.put(`users/${uId}/state/${type}`)
+      if (meta.status !== 200) return this.$message.error('修改用户状态失败')
+      this.$message.success('修改用户状态成功')
+      this.loadData()
     }
   },
   mounted () {

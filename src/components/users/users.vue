@@ -27,6 +27,7 @@
         <el-table-column label="状态">
           <template slot-scope="scope">
             <el-switch
+              @change="updateState(scope.row.id, scope.row.mg_state)"
               v-model="scope.row.mg_state"
               active-color="#13ce66"
               inactive-color="#ccc">
