@@ -33,7 +33,7 @@
 <script>
 export default {
   name: 'Home',
-  data(){
+  data () {
     return {
       iscollapse: false,
       menus: [],
@@ -43,7 +43,7 @@ export default {
   methods: {
     // 折叠or展开导航菜单
     toggleMenu () {
-      this.collapse=!this.collapse
+      this.collapse = !this.collapse
     },
     // 获取菜单数据
     loadData () {

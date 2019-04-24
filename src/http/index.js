@@ -14,10 +14,9 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(res => {
   if (res.data.meta.status === 401) {
     location.href = '/login'
-  }
-  else {
+  } else {
     return res
-  }    
+  }
 })
 // 导出axios
 export default axios
