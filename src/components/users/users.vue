@@ -34,10 +34,10 @@
           </template>
         </el-table-column>
         <el-table-column label="操作">
-          <template>
+          <template slot-scope="scope">
             <el-button-group>
               <el-button type="plain" icon="el-icon-edit" round></el-button>
-              <el-button type="plain" icon="el-icon-delete"></el-button>
+              <el-button type="plain" @click="delUser(scope.row.id)" icon="el-icon-delete"></el-button>
               <el-button type="plain" icon="el-icon-setting" round></el-button>
             </el-button-group>
           </template>
