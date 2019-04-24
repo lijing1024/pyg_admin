@@ -14,8 +14,10 @@ export default {
       reqParam: {
         query: '',
         pagenum: 1,
-        pagesize: 10
+        pagesize: 3
       },
+      // 总页数
+      total: 0,
       // 添加新用户相关数据
       dialogVisible: false,
       addForm: {
@@ -51,6 +53,12 @@ export default {
       const {data: {data, meta}} = await this.$axios.get('users', {params: this.reqParam})
       if (meta.status !== 200) return this.$message.error('获取用户数据失败')
       this.userList = data.users
+      this.total = data.total
+    },
+    // 分页查询
+    changePager (newPage) {
+      this.reqParam.pagenum = newPage
+      this.loadData()
     },
     // 添加新用户
     // 1.显示添加对话框

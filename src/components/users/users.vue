@@ -46,9 +46,11 @@
       <!-- 分页按钮 -->
       <div class="pager_container">
         <el-pagination
+          @current-change="changePager"
+          :page-size="reqParam.pagesize"
           background
           layout="prev, pager, next"
-          :total="1000">
+          :total="total">
         </el-pagination>
       </div>
     </el-card>
