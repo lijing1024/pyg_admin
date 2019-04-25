@@ -29,6 +29,7 @@ export default {
       // 使用正则修改children字段为child
       const resData = JSON.parse(JSON.stringify(data).replace(/children/g, 'child'))
       this.rolesList = resData
+      console.log(resData)
     }
   },
   mounted () {

@@ -14,23 +14,30 @@
         style="width: 100%">
         <!-- 权限列表展开项 -->
         <el-table-column type="expand" width="100">
-          <template>
+          <template slot-scope="scope">
             <!-- 一级权限 -->
-            <el-row>
+            <el-row
+            style="border-bottom:1px solid #eee"
+            :style="{'border-top': i===0?'1px solid #eee':'none'}"
+            v-for="(item, i) in scope.row.child"
+            :key="item.id">
               <el-col :span="4">
-                <el-tag closable>一级权限</el-tag>
+                <el-tag closable>{{item.authName}}</el-tag>
                 <span class="el-icon-caret-right"></span>
               </el-col>
               <el-col :span="20">
               <!-- 二级权限 -->
-                <el-row>
+                <el-row
+                :style="{'border-top': i===0?'none':'1px solid #eee'}"
+                v-for="(secondItem, i) in item.child"
+                :key="secondItem.id">
                   <el-col :span="8">
-                    <el-tag closable type="success">二级权限</el-tag>
+                    <el-tag closable type="success">{{secondItem.authName}}</el-tag>
                     <span class="el-icon-caret-right"></span>
                   </el-col>
                   <el-col :span="16">
                   <!-- 三级权限 -->
-                    <el-tag closable type="warning">三级权限</el-tag>
+                    <el-tag v-for="thirdItem in secondItem.child" :key="thirdItem.id" closable type="warning">{{thirdItem.authName}}</el-tag>
                   </el-col>
                 </el-row>
               </el-col>
@@ -60,5 +67,13 @@ export default {
 }
 </script>
 <style>
-
+/* 每级权限居中显示 */
+.el-row{
+  display: flex;
+  align-items: center;
+}
+/* 设置每个权限标签的margin */
+.el-tag{
+  margin: 5px;
+}
 </style>
