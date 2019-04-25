@@ -54,7 +54,9 @@
             <el-button-group>
             <el-button icon="el-icon-edit" round @click="showEditDialog(scope.row.id)"></el-button>
             <el-button icon="el-icon-delete" @click="delRole(scope.row.id)"></el-button>
-            <el-button icon="el-icon-setting" round></el-button>
+            <el-tooltip class="item" effect="dark" content="分配权限" placement="right-start">
+              <el-button icon="el-icon-setting" @click="showRightDialog()" round></el-button>
+            </el-tooltip>
           </el-button-group>
           </template>
         </el-table-column>
@@ -90,6 +92,22 @@
         <el-button @click="editRole()" type="primary">确 定</el-button>
       </div>
     </el-dialog>
+    <!-- 分配权限对话框 -->
+    <el-dialog title="分配权限" width="400px" :visible.sync="rightDialogVisible">
+      <!-- 权限树状结构 -->
+      <el-tree
+        default-expand-all
+        :data="rightTree"
+        show-checkbox
+        node-key="id"
+        :props="defaultProps">
+      </el-tree>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="rightDialogVisible=false">取 消</el-button>
+        <el-button @click="assignRight()" type="primary">确 定</el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 <script>

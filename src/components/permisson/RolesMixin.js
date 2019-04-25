@@ -27,6 +27,14 @@ export default {
         roleDesc: [
           {required: true, message: '角色描述不能为空', trigger: 'blur'}
         ]
+      },
+      // 分配权限相关
+      rightDialogVisible: false,
+      // 树状权限列表相关
+      rightTree: [],
+      defaultProps: {
+        children: 'children',
+        label: 'authName'
       }
     }
   },
@@ -119,6 +127,17 @@ export default {
           message: '已取消删除'
         })
       })
+    },
+    // 给角色分配对应的权限
+    // 1.显示分配权限对话框
+    async showRightDialog () {
+      const {data: {data, meta}} = await this.$axios.get('rights/tree')
+      if (meta.status !== 200) return this.$message.error('获取权限列表失败')
+      this.rightTree = data
+      this.rightDialogVisible = true
+    },
+    // 2.提交分配数据
+    assignRight () {
     }
   },
   mounted () {
