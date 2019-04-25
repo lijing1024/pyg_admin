@@ -84,7 +84,6 @@ export default {
       if (meta.status !== 200) return this.$message.error('获取该角色信息失败')
       this.$message.success('获取该用户信息成功')
       this.editForm = data
-      console.log(data)
     },
     // 2.提交编辑数据
     editRole () {
@@ -101,6 +100,24 @@ export default {
           this.editDialogVisible = false
           this.loadData()
         }
+      })
+    },
+    // 删除角色
+    async delRole (id) {
+      this.$confirm('此操作将永久删除该角色, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        const {data: {meta}} = await this.$axios.delete(`roles/${id}`)
+        if (meta.status !== 200) return this.$message.error('删除角色失败')
+        this.$message.success('删除角色成功')
+        this.loadData()
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
       })
     }
   },

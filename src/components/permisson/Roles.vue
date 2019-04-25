@@ -15,6 +15,8 @@
         <!-- 权限列表展开项 -->
         <el-table-column type="expand" width="100">
           <template slot-scope="scope">
+            <!-- 无权限时优化 -->
+            <span v-if="!scope.row.child.length" style="color:#999">暂未分配任何权限</span>
             <!-- 一级权限 -->
             <el-row
             style="border-bottom:1px solid #eee"
@@ -51,7 +53,7 @@
           <template slot-scope="scope">
             <el-button-group>
             <el-button icon="el-icon-edit" round @click="showEditDialog(scope.row.id)"></el-button>
-            <el-button icon="el-icon-delete"></el-button>
+            <el-button icon="el-icon-delete" @click="delRole(scope.row.id)"></el-button>
             <el-button icon="el-icon-setting" round></el-button>
           </el-button-group>
           </template>
