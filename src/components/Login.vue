@@ -10,8 +10,8 @@
           <el-input  type="password" prefix-icon="iconfont icon-eye-slash" placeholder="请输入密码" v-model="form.password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submit()">登录</el-button>
           <el-button>重置</el-button>
+          <el-button type="primary" @click="submit()">登录</el-button>
         </el-form-item>
       </el-form>
     </div>
