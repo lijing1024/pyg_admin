@@ -7,7 +7,7 @@
       <el-breadcrumb-item>角色列表</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card>
-      <el-button type="primary" plain>添加角色</el-button>
+      <el-button type="primary" plain @click="showAddDialog()">添加角色</el-button>
       <el-table
         :data="rolesList"
         highlight-current-row
@@ -48,9 +48,9 @@
         <el-table-column property="roleName" label="角色名称"></el-table-column>
         <el-table-column property="roleDesc" label="角色描述"></el-table-column>
         <el-table-column label="操作">
-          <template>
+          <template slot-scope="scope">
             <el-button-group>
-            <el-button icon="el-icon-edit" round></el-button>
+            <el-button icon="el-icon-edit" round @click="showEditDialog(scope.row.id)"></el-button>
             <el-button icon="el-icon-delete"></el-button>
             <el-button icon="el-icon-setting" round></el-button>
           </el-button-group>
@@ -58,6 +58,36 @@
         </el-table-column>
       </el-table>
     </el-card>
+    <!-- 添加角色对话框 -->
+    <el-dialog title="添加角色" width="400px" :visible.sync="addDialogVisible">
+      <el-form :model="addForm" ref="addForm" :rules="addRules" label-width="80px"  autocomplete="off">
+        <el-form-item label="角色名称" prop="roleName">
+          <el-input v-model="addForm.roleName"></el-input>
+        </el-form-item>
+        <el-form-item label="角色描述" prop="roleDesc">
+          <el-input v-model="addForm.roleDesc"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="addDialogVisible=false">取 消</el-button>
+        <el-button @click="addRole()" type="primary">确 定</el-button>
+      </div>
+    </el-dialog>
+    <!-- 编辑角色对话框 -->
+    <el-dialog title="编辑角色" width="400px" :visible.sync="editDialogVisible">
+      <el-form :model="editForm" ref="editForm" :rules="editRules" label-width="80px"  autocomplete="off">
+        <el-form-item label="角色名称" prop="roleName">
+          <el-input v-model="editForm.roleName"></el-input>
+        </el-form-item>
+        <el-form-item label="角色描述" prop="roleDesc">
+          <el-input v-model="editForm.roleDesc"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="editDialogVisible=false">取 消</el-button>
+        <el-button @click="editRole()" type="primary">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
