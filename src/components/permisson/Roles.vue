@@ -55,7 +55,7 @@
             <el-button icon="el-icon-edit" round @click="showEditDialog(scope.row.id)"></el-button>
             <el-button icon="el-icon-delete" @click="delRole(scope.row.id)"></el-button>
             <el-tooltip class="item" effect="dark" content="分配权限" placement="right-start">
-              <el-button icon="el-icon-setting" @click="showRightDialog()" round></el-button>
+              <el-button icon="el-icon-setting" @click="showRightDialog(scope.row)" round></el-button>
             </el-tooltip>
           </el-button-group>
           </template>
@@ -96,9 +96,11 @@
     <el-dialog title="分配权限" width="400px" :visible.sync="rightDialogVisible">
       <!-- 权限树状结构 -->
       <el-tree
+        ref="rightTree"
         default-expand-all
         :data="rightTree"
         show-checkbox
+        :default-checked-keys="rightCheckedList"
         node-key="id"
         :props="defaultProps">
       </el-tree>

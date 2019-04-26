@@ -32,6 +32,8 @@ export default {
       rightDialogVisible: false,
       // 树状权限列表相关
       rightTree: [],
+      rightCheckedList: [],
+      currentRoleId: '',
       defaultProps: {
         children: 'children',
         label: 'authName'
@@ -130,14 +132,40 @@ export default {
     },
     // 给角色分配对应的权限
     // 1.显示分配权限对话框
-    async showRightDialog () {
+    async showRightDialog (row) {
+      this.rightCheckedList = []
       const {data: {data, meta}} = await this.$axios.get('rights/tree')
       if (meta.status !== 200) return this.$message.error('获取权限列表失败')
       this.rightTree = data
+      // 获取当前角色已有的权限
+      const rightArr = []
+      row.child.forEach(item => {
+        item.child.forEach(item => {
+          item.child.forEach(item => {
+            rightArr.push(item.id)
+          })
+        })
+      })
+      this.rightCheckedList = rightArr
+      // 先获取数据再显示对话框,避免闪烁问题
       this.rightDialogVisible = true
+      // 获取当前角色的id,提交分配好的权限时进行传参
+      this.currentRoleId = row.id
     },
     // 2.提交分配数据
-    assignRight () {
+    async assignRight () {
+      // 调用DOM的API获取所有被选中和半选中的节点,合并到一个数组中
+      const treeDom = this.$refs.rightTree
+      const checkedArr = treeDom.getCheckedKeys()
+      const halfCheckedArr = treeDom.getHalfCheckedKeys()
+      const allArr = [...checkedArr, ...halfCheckedArr]
+      const {data: {meta}} = await this.$axios.post(`roles/${this.currentRoleId}/rights`, {
+        rids: allArr.join(',')
+      })
+      if (meta.status !== 200) return this.$message.error('修改权限失败')
+      this.$message.success('修改权限成功')
+      this.rightDialogVisible = false
+      this.loadData()
     }
   },
   mounted () {
