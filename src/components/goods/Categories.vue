@@ -8,7 +8,7 @@
     </el-breadcrumb>
     <el-card>
       <el-button type="primary" plain>添加分类</el-button>
-      <!-- 树状表格 -->
+      <!-- 分类列表-树状表格 -->
       <el-table
         :data="categoriesList"
         :indent="50"
@@ -37,6 +37,16 @@
           </template>
         </el-table-column>
       </el-table>
+      <!-- 分页按钮 -->
+      <div class="pager_container">
+        <el-pagination
+          @current-change="changePager"
+          :page-size="reqParam.pagesize"
+          background
+          layout="prev, pager, next"
+          :total="total">
+        </el-pagination>
+      </div>
     </el-card>
   </div>
 </template>
