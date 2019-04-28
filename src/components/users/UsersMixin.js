@@ -125,7 +125,7 @@ export default {
           if (meta.status !== 201) return this.$message.error('添加用户失败')
           // 添加用户成功
           this.$message.success('添加用户成功')
-          this.dialogVisible = false
+          this.addDialogVisible = false
           this.loadData()
         }
       })
@@ -185,7 +185,6 @@ export default {
       // b.渲染下拉框数据
       const {data: {data, meta}} = await this.$axios.get('roles')
       if (meta.status !== 200) return this.$message.error('获取所有角色数据失败')
-      this.$message.success('获取所有角色数据成功')
       this.options = data
     },
     // 2.提交修改后的角色数据
