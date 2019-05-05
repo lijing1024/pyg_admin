@@ -24,6 +24,14 @@ export default {
         cat_name: [
           {required: true, message: '分类名称不能为空', trigger: 'blur'}
         ]
+      },
+      // 编辑分类相关
+      editDialogVisible: false,
+      editForm: {},
+      editRules: {
+        cat_name: [
+          {required: true, message: '分类名称不能为空', trigger: 'blur'}
+        ]
       }
     }
   },
@@ -82,6 +90,49 @@ export default {
     },
     // 级联绑定的数据变化时触发
     handleChange () {
+    },
+    // 删除分类
+    delCate (id) {
+      this.$confirm('此操作将永久删除该分类, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        const {data: {meta}} = await this.$axios.delete(`categories/${id}`)
+        if (meta.status !== 200) return this.$message.error('删除分类失败')
+        this.$message.success('删除分类成功')
+        this.loadData()
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
+    // 编辑分类
+    // 1.显示编辑分类对话框
+    async showEditDialog (id) {
+      this.editDialogVisible = true
+      this.$nextTick(() => {
+        this.$refs.editForm.resetFields()
+      })
+      const {data: {data, meta}} = await this.$axios.get(`categories/${id}`)
+      if (meta.status !== 200) return this.$message.error('获取该分类信息失败')
+      this.editForm = data
+    },
+    // 2.提交编辑数据
+    editCate () {
+      // 校验表单
+      this.$refs.editForm.validate(async valid => {
+        if (valid) {
+          const {data: {meta}} = await this.$axios.put(`categories/${this.editForm.cat_id}`, {
+            cat_name: this.editForm.cat_name})
+          if (meta.status !== 200) return this.$message.error('编辑分类失败')
+          this.$message.success('编辑分类成功')
+          this.loadData()
+          this.editDialogVisible = false
+        }
+      })
     }
   },
   mounted () {
