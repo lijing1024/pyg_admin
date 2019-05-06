@@ -12,6 +12,7 @@
         <el-form-item label="选择商品分类：">
           <el-cascader
             expand-trigger="hover"
+            :props="{value: 'cat_id', label: 'cat_name'}"
             :options="parentCate"
             v-model="selectedVal"
             @change="handleChange">
@@ -20,11 +21,46 @@
       </el-form>
       <!-- Tab栏切换 -->
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="动态参数" name="first">
+        <el-tab-pane label="动态参数" name="many">
           <el-button type="success" :disabled="disabled">添加动态参数</el-button>
+          <el-table
+          :data="manyAttrs">
+            <el-table-column type="expand" width="100px">
+              <template slot-scope="scope">
+                <el-tag v-for="(item, i) in scope.row.attr_vals.split(',')" :key="i">{{item}}</el-tag>
+                <el-tag>添加+</el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column label="属性名称" prop="attr_name"></el-table-column>
+            <el-table-column label="操作" width="120px">
+              <template>
+                <el-button-group>
+                  <el-button icon="el-icon-edit" round></el-button>
+                  <el-button icon="el-icon-delete" round></el-button>
+                </el-button-group>
+              </template>
+            </el-table-column>
+          </el-table>
         </el-tab-pane>
-        <el-tab-pane label="静态参数" name="second">
+        <el-tab-pane label="静态参数" name="only">
           <el-button type="success" :disabled="disabled">添加静态参数</el-button>
+          <el-table :data="onlyAttrs">
+            <el-table-column type="index" width="100px" align="center"></el-table-column>
+            <el-table-column label="属性名称" prop="attr_name"></el-table-column>
+            <el-table-column label="属性值">
+              <template slot-scope="scope">
+                <el-tag size="normal" style="width:300px;">{{scope.row.attr_vals}}</el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column label="操作">
+              <template>
+                <el-button-group>
+                  <el-button icon="el-icon-edit"></el-button>
+                  <el-button icon="el-icon-delete"></el-button>
+                </el-button-group>
+              </template>
+            </el-table-column>
+          </el-table>
         </el-tab-pane>
       </el-tabs>
     </el-card>
@@ -36,3 +72,8 @@ export default {
   mixins: [mixin]
 }
 </script>
+<style scoped>
+.el-tag {
+  margin: 5px;
+}
+</style>
