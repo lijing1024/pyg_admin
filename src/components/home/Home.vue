@@ -45,7 +45,6 @@ export default {
     return {
       iscollapse: false,
       menus: [],
-      children: [],
       iconList: ['icon-account', 'icon-cog', 'icon-shoppingcart', 'icon-file', 'icon-chart-area']
     }
   },
