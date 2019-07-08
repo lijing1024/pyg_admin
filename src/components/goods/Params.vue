@@ -33,10 +33,10 @@
             </el-table-column>
             <el-table-column label="属性名称" prop="attr_name"></el-table-column>
             <el-table-column label="操作" width="120px">
-              <template>
+              <template slot-scope="scope">
                 <el-button-group>
                   <el-button icon="el-icon-edit" round></el-button>
-                  <el-button icon="el-icon-delete" round></el-button>
+                  <el-button icon="el-icon-delete" round @click="delParams(scope.row.attr_id)"></el-button>
                 </el-button-group>
               </template>
             </el-table-column>
@@ -53,10 +53,10 @@
               </template>
             </el-table-column>
             <el-table-column label="操作">
-              <template>
+              <template slot-scope="scope">
                 <el-button-group>
                   <el-button icon="el-icon-edit"></el-button>
-                  <el-button icon="el-icon-delete"></el-button>
+                  <el-button icon="el-icon-delete" @click="delParams(scope.row.attr_id)"></el-button>
                 </el-button-group>
               </template>
             </el-table-column>
