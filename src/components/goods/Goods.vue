@@ -25,6 +25,7 @@
         <el-table-column label="重量" prop="goods_weight"></el-table-column>
         <el-table-column label="创建时间">
           <template slot-scope="scope">
+            {{scope.row.add_time | ft}}
           </template>
         </el-table-column>
         <el-table-column label="操作">

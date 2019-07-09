@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from './http'
+import moment from 'moment'
 
 // 导入elment-ui
 import ElementUI from 'element-ui'
@@ -18,6 +19,11 @@ Vue.prototype.$axios = axios
 
 // 设置为true,控制台的日志会更详细
 Vue.config.productionTip = false
+
+// 全局过滤器（格式化时间）
+Vue.filter('ft', (v) => {
+  return moment(v * 1000).format('YYYY-MM-DD hh:mm:ss')
+})
 
 /* eslint-disable no-new */
 new Vue({
