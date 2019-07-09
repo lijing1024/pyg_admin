@@ -8,8 +8,10 @@
     <el-card>
       <el-row :gutter="20">
         <el-col :span="6">
-          <el-input placeholder="请输入搜索内容" v-model="reqParams.query">
-            <el-button slot="append" icon="el-icon-search"></el-button>
+          <el-input
+            placeholder="请输入搜索内容"
+            v-model="reqParams.query">
+            <el-button @click="search()" slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </el-col>
         <el-col :span="18">
@@ -28,10 +30,20 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button icon="el-icon-edit" circle></el-button>
-            <el-button icon="el-icon-delete" circle></el-button>
+            <el-button icon="el-icon-delete" @click="delGoods(scope.row.goods_id)" circle></el-button>
           </template>
         </el-table-column>
       </el-table>
+      <div class="pager_container">
+        <el-pagination
+          @current-change="changePager"
+          :page-size="reqParams.pagesize"
+          :current-page="reqParams.pagenum"
+          background
+          layout="prev, pager, next"
+          :total="total">
+        </el-pagination>
+      </div>
     </el-card>
   </div>
 </template>
