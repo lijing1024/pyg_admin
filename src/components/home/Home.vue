@@ -8,7 +8,7 @@
     <el-container>
       <el-aside class="home_aside" :width="iscollapse?'65px':'180px'">
         <el-menu
-          :default-active="$route.name"
+          :default-active="'/'+$route.name"
           unique-opened
           router
           :collapse="iscollapse"
@@ -25,7 +25,7 @@
             </template>
             <!-- 二级导航 -->
             <!-- 启动router模式,index即为跳转路径 -->
-            <el-menu-item v-for="subItem in item.children" :key="subItem.id" :index="subItem.path" >
+            <el-menu-item v-for="subItem in item.children" :key="subItem.id" :index="'/'+subItem.path" >
               <i class="el-icon-menu"></i>
               <span>{{subItem.authName}}</span>
             </el-menu-item>

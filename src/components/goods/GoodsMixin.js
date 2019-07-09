@@ -46,6 +46,10 @@ export default {
           message: '已取消删除'
         })
       })
+    },
+    // 添加商品（编程式导航）
+    toAdd () {
+      this.$router.push('/goods/add')
     }
   },
   mounted () {
