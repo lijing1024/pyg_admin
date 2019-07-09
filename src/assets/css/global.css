@@ -20,5 +20,8 @@ body{
 .el-pagination{
   margin-top: 15px;
   text-align: right;
-
+}
+/* el-step的公共样式 */
+.el-step__title{
+  font-size: 12px;
 }

@@ -46,8 +46,26 @@
             </el-form-item>
           </el-form>
         </el-tab-pane>
-        <el-tab-pane label="商品参数">商品参数</el-tab-pane>
-        <el-tab-pane label="商品属性">商品属性</el-tab-pane>
+        <el-tab-pane label="商品参数">
+          <el-form label-width="200px">
+            <el-form-item
+              v-for="(item,i) in manyAttrs" :key=i
+              :label="item.attr_name">
+              <el-tag
+                v-for="(tag, i) in item.attr_vals?item.attr_vals.split(','):[]"
+                :key="i">{{tag}}</el-tag>
+            </el-form-item>
+          </el-form>
+        </el-tab-pane>
+        <el-tab-pane label="商品属性">
+          <el-form label-width="200px" style="margin-left:50px">
+            <el-form-item
+              v-for="(item,i) in onlyAttrs" :key=i
+              :label="item.attr_name">
+              <el-tag style="width:300px">{{item.attr_vals}}</el-tag>
+            </el-form-item>
+          </el-form>
+        </el-tab-pane>
         <el-tab-pane label="商品图片">商品图片</el-tab-pane>
         <el-tab-pane label="商品内容">商品内容</el-tab-pane>
       </el-tabs>
@@ -61,4 +79,7 @@ export default {
 }
 </script>
 <style scoped>
+.el-tag {
+  margin: 5px;
+}
 </style>

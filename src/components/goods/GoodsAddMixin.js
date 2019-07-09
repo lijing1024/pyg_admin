@@ -33,7 +33,10 @@ export default {
       },
       // 级联相关数据
       categoryList: [],
-      selectedValues: []
+      selectedValues: [],
+      // 第二、三个选项卡的参数数据
+      manyAttrs: [],
+      onlyAttrs: []
     }
   },
   // 使用侦听器校验级联选中的是否为三级分类
@@ -65,6 +68,9 @@ export default {
             if (valid) {
               // 校验成功，切换至对应的步骤条
               this.active = +activeName
+              // 调用获取参数的方法，获得第二、三个选项卡的数据
+              this.getParams('many')
+              this.getParams('only')
               resolve()
             } else {
               reject(new Error('表单校验失败'))
@@ -75,10 +81,19 @@ export default {
         // 如果不是第一个选项卡，直接切换步骤条即可
         this.active = +activeName
       }
-    }
+    },
     // changeTab (tab) {
     //   this.active = +tab.index
     // }
+    // 获取第二个和第三个选项卡的数据
+    async getParams (type) {
+      const id = this.selectedValues[2]
+      const {data: {data, meta}} = await this.$axios.get(`categories/${id}/attributes`, {
+        params: {sel: type}
+      })
+      if (meta.status !== 200) return this.$message.error('获取参数信息失败')
+      this[type + 'Attrs'] = data
+    }
   },
   mounted () {
     this.getCates()
