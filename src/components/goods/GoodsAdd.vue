@@ -66,7 +66,20 @@
             </el-form-item>
           </el-form>
         </el-tab-pane>
-        <el-tab-pane label="商品图片">商品图片</el-tab-pane>
+        <el-tab-pane label="商品图片">
+          <el-upload
+            :on-success="handleSuccess"
+            :action="action"
+            :headers="headers"
+            list-type="picture-card"
+            :on-preview="handlePictureCardPreview"
+            :on-remove="handleRemove">
+            <i class="el-icon-plus"></i>
+          </el-upload>
+          <el-dialog :visible.sync="dialogVisible">
+            <img width="100%" :src="dialogImageUrl" alt="">
+          </el-dialog>
+        </el-tab-pane>
         <el-tab-pane label="商品内容">商品内容</el-tab-pane>
       </el-tabs>
     </el-card>

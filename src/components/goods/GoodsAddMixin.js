@@ -11,7 +11,8 @@ export default {
         goods_price: '',
         goods_number: '',
         goods_weight: '',
-        goods_introduce: ''
+        goods_introduce: '',
+        pics: []
       },
       // form校验规则
       rules: {
@@ -36,7 +37,16 @@ export default {
       selectedValues: [],
       // 第二、三个选项卡的参数数据
       manyAttrs: [],
-      onlyAttrs: []
+      onlyAttrs: [],
+      // 上传图片相关数据
+      // action上传图片地址的全路径
+      action: this.$axios.defaults.baseURL + 'upload',
+      // 请求不是通过axios,故需要添加token
+      headers: {
+        Authorization: sessionStorage.getItem('token')
+      },
+      dialogVisible: false,
+      dialogImageUrl: ''
     }
   },
   // 使用侦听器校验级联选中的是否为三级分类
@@ -93,6 +103,28 @@ export default {
       })
       if (meta.status !== 200) return this.$message.error('获取参数信息失败')
       this[type + 'Attrs'] = data
+    },
+    // 监听上传图片成功
+    handleSuccess (res) {
+      // 上传成功，将图片地址追加至data中的form.pics数组中
+      // console.log(res)
+      if (res.meta.msg !== '上传成功') return this.$message.error('图片上传失败')
+      this.form.pics.push({pic: res.data.tmp_path})
+    },
+    // 预览图片
+    handlePictureCardPreview (file) {
+      // console.log(file)
+      this.dialogVisible = true
+      this.dialogImageUrl = file.url
+    },
+    // 删除图片(移除pics数组中对应的图片)
+    handleRemove (file, fileList) {
+      // 根据图片URL找到对应的索引，删除数组中该索引对应的值
+      const path = file.response.data.tmp_path
+      const index = this.form.pics.findIndex(item => {
+        return item.pic === path
+      })
+      this.form.pics.splice(index, 1)
     }
   },
   mounted () {
