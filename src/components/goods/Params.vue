@@ -27,8 +27,18 @@
           :data="manyAttrs">
             <el-table-column type="expand" width="100px">
               <template slot-scope="scope">
-                <el-tag v-for="(item, i) in scope.row.attr_vals.split(',')" :key="i">{{item}}</el-tag>
-                <el-tag>添加+</el-tag>
+                <el-tag @close="delAttrVals(scope.row,i)" v-for="(item, i) in scope.row.attr_vals" :key="i" size="normal" closable>{{item}}</el-tag>
+                <el-tag v-show="!scope.row.inputShow"
+                  disable-transitions
+                  size="normal"
+                  @click="showInput(scope.row)">+添加</el-tag>
+                <el-input
+                  v-show="scope.row.inputShow"
+                  v-model="scope.row.inputValue"
+                  @blur="hideInput(scope.row)"
+                  :ref="'input' + scope.row.attr_id"
+                  class="w100"
+                ></el-input>
               </template>
             </el-table-column>
             <el-table-column label="属性名称" prop="attr_name"></el-table-column>
@@ -87,5 +97,8 @@ export default {
 <style scoped>
 .el-tag {
   margin: 5px;
+}
+.w100 {
+  width: 100px;
 }
 </style>
