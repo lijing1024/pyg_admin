@@ -25,7 +25,7 @@
             <el-form-item label="商品名称" prop="goods_name">
               <el-input v-model="form.goods_name" style="width: 400px"></el-input>
             </el-form-item>
-            <el-form-item label="商品分类" prop="goods_cate">
+            <el-form-item label="商品分类" prop="goods_cat">
               <el-cascader
                 clearable
                 v-model="selectedValues"
@@ -80,7 +80,13 @@
             <img width="100%" :src="dialogImageUrl" alt="">
           </el-dialog>
         </el-tab-pane>
-        <el-tab-pane label="商品内容">商品内容</el-tab-pane>
+        <el-tab-pane label="商品内容">
+          <quill-editor v-model="form.goods_introduce"></quill-editor>
+          <el-button
+            style="margin-top:20px"
+            type="success"
+            @click="addSubmit()">保存商品</el-button>
+        </el-tab-pane>
       </el-tabs>
     </el-card>
   </div>

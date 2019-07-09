@@ -7,7 +7,7 @@ export default {
       // 添加商品form数据
       form: {
         goods_name: '',
-        goods_cate: '',
+        goods_cat: '',
         goods_price: '',
         goods_number: '',
         goods_weight: '',
@@ -19,7 +19,7 @@ export default {
         goods_name: [
           {required: true, message: '商品名称不能为空', trigger: 'blur'}
         ],
-        goods_cate: [
+        goods_cat: [
           {required: true, message: '商品必须属于三级分类下', trigger: 'change'}
         ],
         goods_price: [
@@ -53,9 +53,9 @@ export default {
   watch: {
     selectedValues (now, oldActiveName) {
       if (now.length === 3) {
-        this.form.goods_cate = now.join(',')
+        this.form.goods_cat = now.join(',')
       } else {
-        this.form.goods_cate = ''
+        this.form.goods_cat = ''
         // this.selectedValues = ''
       }
     }
@@ -104,11 +104,11 @@ export default {
       if (meta.status !== 200) return this.$message.error('获取参数信息失败')
       this[type + 'Attrs'] = data
     },
-    // 监听上传图片成功
+    // 上传图片
     handleSuccess (res) {
       // 上传成功，将图片地址追加至data中的form.pics数组中
       // console.log(res)
-      if (res.meta.msg !== '上传成功') return this.$message.error('图片上传失败')
+      if (res.meta.status !== 200) return this.$message.error('图片上传失败')
       this.form.pics.push({pic: res.data.tmp_path})
     },
     // 预览图片
@@ -125,6 +125,15 @@ export default {
         return item.pic === path
       })
       this.form.pics.splice(index, 1)
+    },
+    // 提交保存
+    async addSubmit () {
+      // 合并动态参数和静态参数
+      this.form.attrs = {...this.manyAttrs, ...this.onlyAttrs}
+      const {data: {meta}} = await this.$axios.post('goods', this.form)
+      if (meta.status !== 201) return this.$message.error('商品录入失败')
+      // 录入成功，跳转至列表页
+      this.$router.push('/goods')
     }
   },
   mounted () {
