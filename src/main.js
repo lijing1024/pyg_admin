@@ -1,4 +1,4 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from './http'
@@ -6,7 +6,7 @@ import moment from 'moment'
 import VueQuillEditor from 'vue-quill-editor'
 
 // 导入elment-ui
-import ElementUI from 'element-ui'
+// import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 // 导入富文本编辑器依赖的样式
@@ -19,7 +19,7 @@ import './assets/css/global.css'
 // 导入字体图标
 import './assets/fonts/iconfont.css'
 
-Vue.use(ElementUI, {size: 'small'})
+Vue.use(ELEMENT, {size: 'small'})
 Vue.use(VueQuillEditor)
 
 // 全局配置axios

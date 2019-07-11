@@ -9,14 +9,14 @@ function resolve (dir) {
 }
 
 const createLintingRule = () => ({
-  test: /\.(js|vue)$/,
-  loader: 'eslint-loader',
-  enforce: 'pre',
-  include: [resolve('src'), resolve('test')],
-  options: {
-    formatter: require('eslint-friendly-formatter'),
-    emitWarning: !config.dev.showEslintErrorsInOverlay
-  }
+  // test: /\.(js|vue)$/,
+  // loader: 'eslint-loader',
+  // enforce: 'pre',
+  // include: [resolve('src'), resolve('test')],
+  // options: {
+  //   formatter: require('eslint-friendly-formatter'),
+  //   emitWarning: !config.dev.showEslintErrorsInOverlay
+  // }
 })
 
 module.exports = {
@@ -36,6 +36,15 @@ module.exports = {
     alias: {
       '@': resolve('src'),
     }
+  },
+  // 打包优化之配置CDN服务
+  externals: {
+    // key (包的名称)  value (js文件暴露在全局的对象名称)
+    // 注意 导包后的 接受包的变量和 暴露在全局的对象名称 一致
+    'vue': 'Vue',
+    'Router':'VueRouter',
+    'element-ui': 'ELEMENT',
+    'echarts': 'echarts'
   },
   module: {
     rules: [

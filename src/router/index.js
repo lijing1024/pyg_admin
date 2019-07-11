@@ -1,21 +1,21 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Login from '@/components/Login'
-import Home from '@/components/home/Home'
-import Welcome from '@/components/home/Welcome'
-import Users from '@/components/users/Users'
-import Rights from '@/components/permisson/Rights'
-import Roles from '@/components/permisson/Roles'
-import Categories from '@/components/goods/Categories'
-import Params from '@/components/goods/Params'
-import Goods from '@/components/goods/Goods'
-import GoodsAdd from '@/components/goods/GoodsAdd'
-import Orders from '@/components/orders/Orders'
-import Reports from '@/components/reports/Reports'
+// import Vue from 'vue'
+// import Router from 'vue-router'
+const Login = () => import('@/components/Login')
+const Home = () => import('@/components/home/Home')
+const Welcome = () => import('@/components/home/Welcome')
+const Users = () => import('@/components/users/Users')
+const Rights = () => import('@/components/permisson/Rights')
+const Roles = () => import('@/components/permisson/Roles')
+const Categories = () => import('@/components/goods/Categories')
+const Params = () => import('@/components/goods/Params')
+const Goods = () => import('@/components/goods/Goods')
+const GoodsAdd = () => import('@/components/goods/GoodsAdd')
+const Orders = () => import('@/components/orders/Orders')
+const Reports = () => import('@/components/reports/Reports')
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
-const router = new Router({
+const router = new VueRouter({
   routes: [
     {
       path: '/login',
